@@ -12,7 +12,7 @@ export default class GameScene extends Phaser.Scene {
   constructor() {
     super("PlayScene");
     this.state = { location:"village", quest:"waiting", shardFound:false, hero:{...spawns.village,name:"Putnik",role:"čuvar",hp:5,maxHp:5,speed:3.2,faceX:1,faceY:0}, enemy:createEnemyState() };
-    this.dialogue = null; this.lastAttack = 0; this.lastDamage = 0;
+    this.dialogue = null; this.lastAttack = 0; this.lastDamage = 0; this.interactionMessage = null;
   }
   init(data={}) {
     const role = data.role || "čuvar", heroClass = heroClasses[role] || heroClasses["čuvar"];
@@ -53,7 +53,15 @@ export default class GameScene extends Phaser.Scene {
     let dx=Number(this.keys.d.isDown||this.cursors.right.isDown)-Number(this.keys.a.isDown||this.cursors.left.isDown),dy=Number(this.keys.s.isDown||this.cursors.down.isDown)-Number(this.keys.w.isDown||this.cursors.up.isDown);
     if(dx||dy){const n=Math.hypot(dx,dy);dx/=n;dy/=n;h.faceX=Math.abs(dx)>Math.abs(dy)?Math.sign(dx):0;h.faceY=Math.abs(dy)>=Math.abs(dx)?Math.sign(dy):0;const nx=h.x+dx*h.speed*dt,ny=h.y+dy*h.speed*dt;if(this.tileAt(Math.floor(nx+Math.sign(dx)*.26),Math.floor(h.y))!=="#")h.x=nx;if(this.tileAt(Math.floor(h.x),Math.floor(ny+Math.sign(dy)*.26))!=="#")h.y=ny}
     if(Phaser.Input.Keyboard.JustDown(this.keys.e))this.interact();if(Phaser.Input.Keyboard.JustDown(this.keys.space))this.attack();
-    if(this.state.location==="cave"&&this.state.enemy.alive)this.updateEnemy(dt);this.pickUpShard();this.positionMark(this.playerMark,(h.x+.5)*TILE,(h.y+.5)*TILE);this.updateEnemyMark();
+    if(this.state.location==="cave"&&this.state.enemy.alive)this.updateEnemy(dt);this.pickUpShard();this.positionMark(this.playerMark,(h.x+.5)*TILE,(h.y+.5)*TILE);this.updateEnemyMark();this.updateInteractionHint();
+  }
+  updateInteractionHint(){
+    const h=this.state.hero;let message="";
+    if(this.state.location==="village"){
+      if(near(h,spawns.npc))message="E — Razgovaraj s Elowen";
+      else if(near(h,spawns.entrance))message="E — Uđi u Mjesečevu špilju";
+    }else if(near(h,spawns.cave))message="E — Izađi iz špilje";
+    if(message!==this.interactionMessage){this.interactionMessage=message;this.game.events.emit("interaction",message)}
   }
   updateEnemyMark(){if(this.enemyMark&&this.state.enemy.alive){const e=this.state.enemy;this.positionMark(this.enemyMark,(e.x+.5)*TILE,(e.y+.5)*TILE);const x=(e.x+.5)*TILE,y=(e.y+.12)*TILE;this.enemyHealth.clear();this.enemyHealth.fillStyle(0x101514,1).fillRect(x-19,y,38,5);this.enemyHealth.fillStyle(0xd47c67,1).fillRect(x-19,y,38*e.hp/characters.caveGuardian.maxHp,5)}else this.enemyHealth?.clear()}
   updateEnemy(dt){
@@ -69,7 +77,7 @@ export default class GameScene extends Phaser.Scene {
     const finish=status==="waiting"||status==="carrying"?()=>this.emitHud():null;
     this.openDialogue(npc.name+", "+npc.title,npc.icon,lines,finish);
   }
-  openDialogue(speaker,icon,lines,done=null){this.dialogue={speaker,icon,lines,index:0,done};this.game.events.emit("dialogue",{speaker,icon,text:lines[0]})}
+  openDialogue(speaker,icon,lines,done=null){this.dialogue={speaker,icon,lines,index:0,done};this.game.events.emit("interaction","");this.interactionMessage=null;this.game.events.emit("dialogue",{speaker,icon,text:lines[0]})}
   advanceDialogue(){if(!this.dialogue)return;this.dialogue.index++;if(this.dialogue.index>=this.dialogue.lines.length){const done=this.dialogue.done;this.dialogue=null;this.game.events.emit("dialogue-close");done?.();return}this.game.events.emit("dialogue",{speaker:this.dialogue.speaker,icon:this.dialogue.icon,text:this.dialogue.lines[this.dialogue.index]})}
   changeLocation(location){this.state.location=location;Object.assign(this.state.hero,spawns[location],{faceX:location==="village"?1:0,faceY:location==="village"?0:1});this.drawWorld();this.drawEntities();this.emitHud();this.notify(location==="cave"?"Ušao si u Mjesečevu špilju.":"Vratio si se u selo.")}
   attack(){const now=this.game.loop.time;if(this.state.location!=="cave"||!this.state.enemy.alive||!isPlayerAttackReady(now,this.lastAttack))return;this.lastAttack=now;if(!canPlayerHit(this.state.hero,this.state.enemy)){this.notify("Udarac nije dosegnuo čuvara.",700);return}this.state.enemy=damageEnemy(this.state.enemy);if(!this.state.enemy.alive)this.notify("Čuvar je pao. Odlomak je slobodan!");else this.notify("Pogodak! Čuvar se zatetura.",850)}
