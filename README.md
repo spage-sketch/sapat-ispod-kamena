@@ -25,4 +25,4 @@ WASD ili strelice: kretanje · E: razgovor i prolaz · Space: udarac
 - src/systems/combatSystem.js: borbena pravila.
 - styles.css: izgled i prilagodba manjim zaslonima.
 
-Zasad je ovo jedna kratka offline pustolovina bez online računa ili multiplayera. Napredak i spremanje još nisu implementirani.
+Zasad je ovo jedna kratka offline pustolovina bez online računa ili multiplayera. Napredak se automatski sprema u lokalnu pohranu preglednika na ovom uređaju; pri sljedećem otvaranju možeš nastaviti spremljenu pustolovinu ili započeti novu.

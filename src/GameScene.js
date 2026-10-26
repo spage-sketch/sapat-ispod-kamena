@@ -15,16 +15,28 @@ export default class GameScene extends Phaser.Scene {
     this.dialogue = null; this.lastAttack = 0; this.lastDamage = 0; this.interactionMessage = null;
   }
   init(data={}) {
-    const role = data.role || "čuvar", heroClass = heroClasses[role] || heroClasses["čuvar"];
-    Object.assign(this.state.hero,{name:data.name||"Putnik",role,maxHp:heroClass.maxHp,hp:heroClass.maxHp,speed:heroClass.speed});
+    const role = data.savedState?.hero.role || data.role || "čuvar", heroClass = heroClasses[role] || heroClasses["čuvar"];
+    if (data.savedState) {
+      const saved = data.savedState;
+      this.state = {
+        location: saved.location,
+        quest: saved.quest,
+        shardFound: saved.shardFound,
+        hero: { ...saved.hero, maxHp: heroClass.maxHp, speed: heroClass.speed, faceX: 1, faceY: 0 },
+        enemy: { ...saved.enemy },
+      };
+    } else {
+      this.state = { location:"village", quest:"waiting", shardFound:false, hero:{...spawns.village,name:data.name||"Putnik",role,maxHp:heroClass.maxHp,hp:heroClass.maxHp,speed:heroClass.speed,faceX:1,faceY:0}, enemy:createEnemyState() };
+    }
   }
   create() {
     this.cursors=this.input.keyboard.createCursorKeys();
     this.keys=this.input.keyboard.addKeys({w:"W",a:"A",s:"S",d:"D",e:"E",space:Phaser.Input.Keyboard.KeyCodes.SPACE});
-    this.mapGraphics=this.add.graphics();this.drawWorld();this.drawEntities();this.emitHud();
+    this.mapGraphics=this.add.graphics();this.drawWorld();this.drawEntities();this.emitHud();this.emitSave();
   }
   hudData(){return {...this.state,locationName:worlds[this.state.location].name,questData:getQuestDisplay(this.state.quest)}}
   emitHud(){this.game.events.emit("hud",this.hudData())}
+  emitSave(){this.game.events.emit("save",{location:this.state.location,quest:this.state.quest,shardFound:this.state.shardFound,hero:{name:this.state.hero.name,role:this.state.hero.role,x:this.state.hero.x,y:this.state.hero.y,hp:this.state.hero.hp},enemy:{...this.state.enemy}})}
   notify(message,duration=2200){this.game.events.emit("toast",{message,duration})}
   drawWorld(){
     const map=worlds[this.state.location].map;this.mapGraphics.clear();
@@ -44,16 +56,21 @@ export default class GameScene extends Phaser.Scene {
     for(const m of this.marks||[])this.clearMark(m);this.enemyHealth?.destroy();this.marks=[];
     this.npcMark=this.enemyMark=this.shardMark=null;
     if(this.state.location==="village"){const npc=characters.elowen;this.npcMark=this.mark((spawns.npc.x+.5)*TILE,(spawns.npc.y+.5)*TILE,npc.icon,0xe9c987);this.marks.push(this.npcMark)}
-    else{const foe=characters.caveGuardian,item=items.moonShard;this.enemyMark=this.mark((this.state.enemy.x+.5)*TILE,(this.state.enemy.y+.5)*TILE,foe.icon,0xcc806c);this.enemyHealth=this.add.graphics();this.shardMark=this.mark((spawns.shard.x+.5)*TILE,(spawns.shard.y+.5)*TILE,item.icon,0x9f8ce0,"31px");this.marks.push(this.enemyMark,this.shardMark)}
+    else{
+      const foe=characters.caveGuardian,item=items.moonShard;
+      if(this.state.enemy.alive){this.enemyMark=this.mark((this.state.enemy.x+.5)*TILE,(this.state.enemy.y+.5)*TILE,foe.icon,0xcc806c);this.enemyHealth=this.add.graphics();this.marks.push(this.enemyMark)}
+      if(!this.state.shardFound){this.shardMark=this.mark((spawns.shard.x+.5)*TILE,(spawns.shard.y+.5)*TILE,item.icon,0x9f8ce0,"31px");this.marks.push(this.shardMark)}
+    }
     const hero=heroClasses[this.state.hero.role];this.playerMark=this.mark((this.state.hero.x+.5)*TILE,(this.state.hero.y+.5)*TILE,hero.icon,0xe9c987);this.marks.push(this.playerMark);
   }
   tileAt(x,y){return worlds[this.state.location].map[y]?.[x]??"#"}
   update(_time,deltaMs){
-    if(this.dialogue)return;const dt=Math.min(deltaMs/1000,.05),h=this.state.hero;
+    if(this.dialogue)return;const dt=Math.min(deltaMs/1000,.05),h=this.state.hero,previousX=h.x,previousY=h.y,enemyX=this.state.enemy.x,enemyY=this.state.enemy.y;
     let dx=Number(this.keys.d.isDown||this.cursors.right.isDown)-Number(this.keys.a.isDown||this.cursors.left.isDown),dy=Number(this.keys.s.isDown||this.cursors.down.isDown)-Number(this.keys.w.isDown||this.cursors.up.isDown);
     if(dx||dy){const n=Math.hypot(dx,dy);dx/=n;dy/=n;h.faceX=Math.abs(dx)>Math.abs(dy)?Math.sign(dx):0;h.faceY=Math.abs(dy)>=Math.abs(dx)?Math.sign(dy):0;const nx=h.x+dx*h.speed*dt,ny=h.y+dy*h.speed*dt;if(this.tileAt(Math.floor(nx+Math.sign(dx)*.26),Math.floor(h.y))!=="#")h.x=nx;if(this.tileAt(Math.floor(h.x),Math.floor(ny+Math.sign(dy)*.26))!=="#")h.y=ny}
     if(Phaser.Input.Keyboard.JustDown(this.keys.e))this.interact();if(Phaser.Input.Keyboard.JustDown(this.keys.space))this.attack();
     if(this.state.location==="cave"&&this.state.enemy.alive)this.updateEnemy(dt);this.pickUpShard();this.positionMark(this.playerMark,(h.x+.5)*TILE,(h.y+.5)*TILE);this.updateEnemyMark();this.updateInteractionHint();
+    if(h.x!==previousX||h.y!==previousY||this.state.enemy.x!==enemyX||this.state.enemy.y!==enemyY){this.saveElapsed=(this.saveElapsed||0)+deltaMs;if(this.saveElapsed>=1000){this.saveElapsed=0;this.emitSave()}}
   }
   updateInteractionHint(){
     const h=this.state.hero;let message="";
@@ -63,23 +80,24 @@ export default class GameScene extends Phaser.Scene {
     }else if(near(h,spawns.cave))message="E — Izađi iz špilje";
     if(message!==this.interactionMessage){this.interactionMessage=message;this.game.events.emit("interaction",message)}
   }
-  updateEnemyMark(){if(this.enemyMark&&this.state.enemy.alive){const e=this.state.enemy;this.positionMark(this.enemyMark,(e.x+.5)*TILE,(e.y+.5)*TILE);const x=(e.x+.5)*TILE,y=(e.y+.12)*TILE;this.enemyHealth.clear();this.enemyHealth.fillStyle(0x101514,1).fillRect(x-19,y,38,5);this.enemyHealth.fillStyle(0xd47c67,1).fillRect(x-19,y,38*e.hp/characters.caveGuardian.maxHp,5)}else this.enemyHealth?.clear()}
+  updateEnemyMark(){if(this.enemyMark&&this.state.enemy.alive){const e=this.state.enemy;this.positionMark(this.enemyMark,(e.x+.5)*TILE,(e.y+.5)*TILE);const x=(e.x+.5)*TILE,y=(e.y+.12)*TILE;this.enemyHealth.clear();this.enemyHealth.fillStyle(0x101514,1).fillRect(x-19,y,38,5);this.enemyHealth.fillStyle(0xd47c67,1).fillRect(x-19,y,38*e.hp/characters.caveGuardian.maxHp,5)}else{if(this.enemyMark)Object.values(this.enemyMark).forEach(object=>object.setVisible(false));this.enemyHealth?.clear()}}
   updateEnemy(dt){
     const h=this.state.hero,e=this.state.enemy,d=Math.hypot(h.x-e.x,h.y-e.y);
     if(enemyCanChase(d)){const step=enemyStep(d,dt),nx=e.x+(h.x-e.x)/d*step,ny=e.y+(h.y-e.y)/d*step;if(this.tileAt(Math.floor(nx),Math.floor(e.y))!=="#")e.x=nx;if(this.tileAt(Math.floor(e.x),Math.floor(ny))!=="#")e.y=ny}
-    else if(enemyCanAttack(d,this.game.loop.time,this.lastDamage)){this.lastDamage=this.game.loop.time;this.state.hero=damageHero(h);this.emitHud();this.notify("Čuvar te je pogodio.",900);if(this.state.hero.hp<=0){this.state.hero.hp=this.state.hero.maxHp;this.state.enemy=createEnemyState();this.changeLocation("village");this.notify("Probudio si se na ulazu. Čuvar te čeka.",2600)}}
+    else if(enemyCanAttack(d,this.game.loop.time,this.lastDamage)){this.lastDamage=this.game.loop.time;this.state.hero=damageHero(h);this.emitHud();this.notify("Čuvar te je pogodio.",900);if(this.state.hero.hp<=0){this.state.hero.hp=this.state.hero.maxHp;this.state.enemy=createEnemyState();this.changeLocation("village");this.notify("Probudio si se na ulazu. Čuvar te čeka.",2600)}else this.emitSave()}
   }
   interact(){if(this.dialogue)return this.advanceDialogue();const h=this.state.hero;if(this.state.location==="village"&&near(h,spawns.npc))return this.talkToElowen();if(this.state.location==="village"&&near(h,spawns.entrance))return this.changeLocation("cave");if(this.state.location==="cave"&&near(h,spawns.cave))return this.changeLocation("village");this.notify("Nema nikoga dovoljno blizu.",1200)}
   talkToElowen(){
     const status=this.state.quest,npc=characters.elowen,lines=elowenDialogue(status,this.state.hero.name);
     if(status==="waiting")this.state.quest=transitionQuest(status,"accept");
     if(status==="carrying")this.state.quest=transitionQuest(status,"complete");
+    if(this.state.quest!==status)this.emitSave();
     const finish=status==="waiting"||status==="carrying"?()=>this.emitHud():null;
     this.openDialogue(npc.name+", "+npc.title,npc.icon,lines,finish);
   }
   openDialogue(speaker,icon,lines,done=null){this.dialogue={speaker,icon,lines,index:0,done};this.game.events.emit("interaction","");this.interactionMessage=null;this.game.events.emit("dialogue",{speaker,icon,text:lines[0]})}
   advanceDialogue(){if(!this.dialogue)return;this.dialogue.index++;if(this.dialogue.index>=this.dialogue.lines.length){const done=this.dialogue.done;this.dialogue=null;this.game.events.emit("dialogue-close");done?.();return}this.game.events.emit("dialogue",{speaker:this.dialogue.speaker,icon:this.dialogue.icon,text:this.dialogue.lines[this.dialogue.index]})}
-  changeLocation(location){this.state.location=location;Object.assign(this.state.hero,spawns[location],{faceX:location==="village"?1:0,faceY:location==="village"?0:1});this.drawWorld();this.drawEntities();this.emitHud();this.notify(location==="cave"?"Ušao si u Mjesečevu špilju.":"Vratio si se u selo.")}
-  attack(){const now=this.game.loop.time;if(this.state.location!=="cave"||!this.state.enemy.alive||!isPlayerAttackReady(now,this.lastAttack))return;this.lastAttack=now;if(!canPlayerHit(this.state.hero,this.state.enemy)){this.notify("Udarac nije dosegnuo čuvara.",700);return}this.state.enemy=damageEnemy(this.state.enemy);if(!this.state.enemy.alive)this.notify("Čuvar je pao. Odlomak je slobodan!");else this.notify("Pogodak! Čuvar se zatetura.",850)}
-  pickUpShard(){if(this.state.location!=="cave"||this.state.quest!=="active"||this.state.shardFound||this.state.enemy.alive||!near(this.state.hero,spawns.shard,.8))return;this.state.shardFound=true;this.state.quest=transitionQuest(this.state.quest,"collect");Object.values(this.shardMark).forEach(object=>object.setVisible(false));this.emitHud();this.openDialogue(items.moonShard.name,items.moonShard.icon,quests.moonShard.dialogue.recovered)}
+  changeLocation(location){this.state.location=location;Object.assign(this.state.hero,spawns[location],{faceX:location==="village"?1:0,faceY:location==="village"?0:1});this.drawWorld();this.drawEntities();this.emitHud();this.emitSave();this.notify(location==="cave"?"Ušao si u Mjesečevu špilju.":"Vratio si se u selo.")}
+  attack(){const now=this.game.loop.time;if(this.state.location!=="cave"||!this.state.enemy.alive||!isPlayerAttackReady(now,this.lastAttack))return;this.lastAttack=now;if(!canPlayerHit(this.state.hero,this.state.enemy)){this.notify("Udarac nije dosegnuo čuvara.",700);return}this.state.enemy=damageEnemy(this.state.enemy);this.emitSave();if(!this.state.enemy.alive)this.notify("Čuvar je pao. Odlomak je slobodan!");else this.notify("Pogodak! Čuvar se zatetura.",850)}
+  pickUpShard(){if(this.state.location!=="cave"||this.state.quest!=="active"||this.state.shardFound||this.state.enemy.alive||!near(this.state.hero,spawns.shard,.8))return;this.state.shardFound=true;this.state.quest=transitionQuest(this.state.quest,"collect");Object.values(this.shardMark).forEach(object=>object.setVisible(false));this.emitHud();this.emitSave();this.openDialogue(items.moonShard.name,items.moonShard.icon,quests.moonShard.dialogue.recovered)}
 }
