@@ -9,7 +9,8 @@ U mapi projekta pokreni pnpm run dev i otvori lokalnu adresu koju Vite ispiše. 
 - Izradi lika: odaberi ime i Čuvara ili Tragača.
 - Razgovaraj s Elowen u selu i prihvati zadatak.
 - Istraži Mjesečevu špilju, porazi čuvara i pokupi odlomak.
-- Vrati se Elowen da dovršiš zadatak.
+- Vrati se Elowen s odlomkom; otključat će ti novi zadatak.
+- Ponovno istraži špilju, porazi čuvara i pronađi kamen odjeka, pa ga donesi Elowen.
 
 ## Kontrole
 WASD ili strelice: kretanje · E: razgovor i prolaz · Space: udarac

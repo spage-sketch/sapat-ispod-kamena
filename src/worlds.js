@@ -9,4 +9,4 @@ export const worlds={
  village:makeWorld("Selo pod Brijegom",[[3,2,1,2],[14,5,3,1],[14,7,3,1]],[["N",4,4],["C",15,6]]),
  cave:makeWorld("Mjesečeva špilja",[[3,2,4,1],[13,2,3,1],[6,3,1,4],[13,3,1,3],[9,5,2,1],[6,7,1,2],[7,8,5,1],[13,8,1,2]],[["C",2,2],["E",15,6],["X",16,9]])
 };
-export const spawns={village:{x:4,y:9},cave:{x:2,y:2},npc:{x:4,y:4},entrance:{x:15,y:6},enemy:{x:15,y:6},shard:{x:16,y:9}};
+export const spawns={village:{x:4,y:9},cave:{x:2,y:2},npc:{x:4,y:4},entrance:{x:15,y:6},enemy:{x:15,y:6},shard:{x:16,y:9},echoStone:{x:10,y:10}};

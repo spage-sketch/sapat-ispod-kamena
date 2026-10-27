@@ -22,9 +22,29 @@ export const quests = {
       recovered: ["Pronašao si odlomak mjesečine! Vrati se u selo i predaj ga Elowen."],
     },
   },
+  stoneEcho: {
+    id: "stone-echo",
+    states: {
+      active: { title: "Odjek iz dubine", description: "Elowen je čula novi odjek iz špilje. Pronađi njegov izvor.", status: "U TIJEKU", tip: "Vrati se u špilju i pronađi kamen koji odjekuje." },
+      carrying: { title: "Kamen koji odjekuje", description: "Pronašao si tajanstveni kamen. Odnesi ga Elowen.", status: "PREDMET PRONAĐEN", tip: "Vrati se u selo i razgovaraj s Elowen." },
+      complete: { title: "Odjek je utihnuo", description: "Elowen je preuzela kamen i špilja je napokon tiha.", status: "ZAVRŠENO", tip: "Pustolovina je završena — možeš još istraživati." },
+    },
+    dialogue: {
+      greeting: ["Odlomak je zaštitio dolinu, {heroName}, ali iz dubine špilje sada dopire novi odjek.", "Pronađi njegov izvor i donesi mi ga."],
+      active: ["Odjek još dolazi iz dubine špilje. Pronađi kamen koji ga stvara."],
+      completion: ["To je izvor odjeka. Sada napokon možemo mirno spavati.", "Hvala ti, {heroName}. Dolina ti duguje još jednu uslugu."],
+      complete: ["Špilja je tiha. Hvala ti, {heroName}."],
+      recovered: ["Pronašao si kamen koji odjekuje! Vrati se u selo i predaj ga Elowen."],
+    },
+  },
 };
 
-export function getQuestDisplay(status) {
-  const entry = quests.moonShard.states[status];
+export function getQuestDisplay(questId, status) {
+  // Keep the original one-argument call compatible with existing call sites.
+  if (status === undefined) {
+    status = questId;
+    questId = "moonShard";
+  }
+  const entry = quests[questId].states[status];
   return [entry.title, entry.description, entry.status, entry.tip];
 }
