@@ -22,7 +22,7 @@ function createStorage(initialValue = null) {
 test("sprema i učitava stanje pustolovine", () => {
   const storage = createStorage();
   writeSave(storage, state);
-  assert.deepEqual(readSave(storage), { status: "available", state });
+  assert.deepEqual(readSave(storage), { status: "available", state: { ...state, inventory: {} } });
 });
 
 test("razlikuje nepostojeće, neispravno i nekompatibilno spremanje", () => {

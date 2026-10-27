@@ -2,39 +2,18 @@ export const quests = {
   moonShard: {
     id: "moon-shard",
     states: {
-      waiting: { title: "Mirna dolina", description: "Razgovaraj s Elowen pokraj stare staze.", status: "ZADATAK ČEKA", tip: "Priđi Elowen i pritisni E da započneš razgovor." },
-      active: { title: "Odlomak mjesečine", description: "U špilji pronađi odlomak. Čuvar ga neće lako prepustiti.", status: "U TIJEKU", tip: "Porazi čuvara i pokupi odlomak." },
-      carrying: { title: "Povratak Elowen", description: "Odlomak je pronađen. Vrati se čuvarici staze.", status: "PREDMET PRONAĐEN", tip: "Vrati se u selo i razgovaraj s Elowen." },
-      complete: { title: "Dolina je sigurna", description: "Elowen je preuzela odlomak. Dobar posao!", status: "ZAVRŠENO", tip: "Pustolovina je završena — možeš još istraživati špilju." },
-    },
-    dialogue: {
-      greeting: [
-        "Dobro došao, {heroName}. Iz špilje se noću čuje čudno pjevanje.",
-        "Ondje je ostao odlomak mjesečine, važan za zaštitu naše doline.",
-        "Možeš li ga pronaći? Uđi kroz stari prolaz i vrati mi ga.",
-      ],
-      completion: [
-        "Vratio si odlomak! Svjetlo se opet vratilo u dolinu.",
-        "Hvala ti, pustolove. Neka ti putovi budu mirni.",
-      ],
-      active: ["Odlomak je još u špilji. Čuvaj se čuvara!"],
-      complete: ["Dolina je sigurna, zahvaljujući tebi."],
-      recovered: ["Pronašao si odlomak mjesečine! Vrati se u selo i predaj ga Elowen."],
+      waiting: { title: "A Quiet Valley", description: "Speak with Elowen beside the old path.", status: "QUEST AVAILABLE", tip: "Find Elowen and press E to talk." },
+      active: { title: "Moonlit Shard", description: "Find the shard in the cave. The guardian will not give it up easily.", status: "IN PROGRESS", tip: "Defeat the guardian and collect the shard." },
+      carrying: { title: "Return to Elowen", description: "You found the shard. Bring it back to the keeper of the path.", status: "ITEM FOUND", tip: "Return to the village and speak with Elowen." },
+      complete: { title: "The Valley Is Safe", description: "Elowen has the shard. Well done!", status: "COMPLETE", tip: "The quest is complete. You can keep exploring the cave." },
     },
   },
   stoneEcho: {
     id: "stone-echo",
     states: {
-      active: { title: "Odjek iz dubine", description: "Elowen je čula novi odjek iz špilje. Pronađi njegov izvor.", status: "U TIJEKU", tip: "Vrati se u špilju i pronađi kamen koji odjekuje." },
-      carrying: { title: "Kamen koji odjekuje", description: "Pronašao si tajanstveni kamen. Odnesi ga Elowen.", status: "PREDMET PRONAĐEN", tip: "Vrati se u selo i razgovaraj s Elowen." },
-      complete: { title: "Odjek je utihnuo", description: "Elowen je preuzela kamen i špilja je napokon tiha.", status: "ZAVRŠENO", tip: "Pustolovina je završena — možeš još istraživati." },
-    },
-    dialogue: {
-      greeting: ["Odlomak je zaštitio dolinu, {heroName}, ali iz dubine špilje sada dopire novi odjek.", "Pronađi njegov izvor i donesi mi ga."],
-      active: ["Odjek još dolazi iz dubine špilje. Pronađi kamen koji ga stvara."],
-      completion: ["To je izvor odjeka. Sada napokon možemo mirno spavati.", "Hvala ti, {heroName}. Dolina ti duguje još jednu uslugu."],
-      complete: ["Špilja je tiha. Hvala ti, {heroName}."],
-      recovered: ["Pronašao si kamen koji odjekuje! Vrati se u selo i predaj ga Elowen."],
+      active: { title: "Echoes Below", description: "Elowen heard a new echo from the cave. Find its source.", status: "IN PROGRESS", tip: "Return to the cave and find the echo stone." },
+      carrying: { title: "The Echo Stone", description: "You found the mysterious stone. Take it to Elowen.", status: "ITEM FOUND", tip: "Return to the village and speak with Elowen." },
+      complete: { title: "The Echo Is Silent", description: "Elowen has the stone, and the cave is quiet at last.", status: "COMPLETE", tip: "The quest is complete. You can keep exploring." },
     },
   },
 };

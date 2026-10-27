@@ -1,0 +1,762 @@
+{
+ "pack": "Gridwright Medieval Village",
+ "version": "1.0",
+ "grid": 16,
+ "note": "Positions and sizes are for the 1x sheets; multiply by 2 or 3 for 2x and 3x.",
+ "bitmask": "cobble: N=1, NE=2, E=4, SE=8, S=16, SW=32, W=64, NW=128; a diagonal counts only when both neighbours next to it are set",
+ "fences": "stone wall and palisade joins: 1 = north, 2 = east, 4 = south, 8 = west",
+ "roofs": "a roof is a block: the ridge row on top, any number of slope rows, the eave row at the bottom; left, middle and right pieces per row",
+ "facades": "one facade row = one storey; left and right pieces carry the building corner",
+ "animation": "frames are named _f1.._fN; suggested speed: windmill 6 fps, smoke 5, fountain 6, forge 8, brazier 8, flags 6",
+ "big_pieces": "a piece bigger than 16x16 stands on its bottom row of cells",
+ "prefabs": "ready-made buildings: day, lit (windows lit, for night scenes) and winter (snow roofs); recipe = the kit piece in every cell, row by row, and the extras placed on cells",
+ "sheets": {
+  "ground": {
+   "image": "Sheets/1x/ground.png",
+   "sprites": {
+    "grass_1": {
+     "x": 0,
+     "y": 0,
+     "w": 16,
+     "h": 16
+    },
+    "grass_2": {
+     "x": 16,
+     "y": 0,
+     "w": 16,
+     "h": 16
+    },
+    "grass_3": {
+     "x": 32,
+     "y": 0,
+     "w": 16,
+     "h": 16
+    },
+    "grass_4": {
+     "x": 48,
+     "y": 0,
+     "w": 16,
+     "h": 16
+    }
+   }
+  },
+  "cobble": {
+   "image": "Sheets/1x/cobble.png",
+   "sprites": {
+    "cobble_000": {
+     "x": 0,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "bitmask": 0
+    },
+    "cobble_001": {
+     "x": 16,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "bitmask": 1
+    },
+    "cobble_004": {
+     "x": 32,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "bitmask": 4
+    },
+    "cobble_005": {
+     "x": 48,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "bitmask": 5
+    },
+    "cobble_007": {
+     "x": 64,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "bitmask": 7
+    },
+    "cobble_016": {
+     "x": 80,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "bitmask": 16
+    },
+    "cobble_017": {
+     "x": 96,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "bitmask": 17
+    },
+    "cobble_020": {
+     "x": 112,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "bitmask": 20
+    },
+    "cobble_021": {
+     "x": 0,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "bitmask": 21
+    },
+    "cobble_023": {
+     "x": 16,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "bitmask": 23
+    },
+    "cobble_028": {
+     "x": 32,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "bitmask": 28
+    },
+    "cobble_029": {
+     "x": 48,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "bitmask": 29
+    },
+    "cobble_031": {
+     "x": 64,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "bitmask": 31
+    },
+    "cobble_064": {
+     "x": 80,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "bitmask": 64
+    },
+    "cobble_065": {
+     "x": 96,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "bitmask": 65
+    },
+    "cobble_068": {
+     "x": 112,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "bitmask": 68
+    },
+    "cobble_069": {
+     "x": 0,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "bitmask": 69
+    },
+    "cobble_071": {
+     "x": 16,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "bitmask": 71
+    },
+    "cobble_080": {
+     "x": 32,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "bitmask": 80
+    },
+    "cobble_081": {
+     "x": 48,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "bitmask": 81
+    },
+    "cobble_084": {
+     "x": 64,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "bitmask": 84
+    },
+    "cobble_085": {
+     "x": 80,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "bitmask": 85
+    },
+    "cobble_087": {
+     "x": 96,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "bitmask": 87
+    },
+    "cobble_092": {
+     "x": 112,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "bitmask": 92
+    },
+    "cobble_093": {
+     "x": 0,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "bitmask": 93
+    },
+    "cobble_095": {
+     "x": 16,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "bitmask": 95
+    },
+    "cobble_112": {
+     "x": 32,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "bitmask": 112
+    },
+    "cobble_113": {
+     "x": 48,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "bitmask": 113
+    },
+    "cobble_116": {
+     "x": 64,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "bitmask": 116
+    },
+    "cobble_117": {
+     "x": 80,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "bitmask": 117
+    },
+    "cobble_119": {
+     "x": 96,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "bitmask": 119
+    },
+    "cobble_124": {
+     "x": 112,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "bitmask": 124
+    },
+    "cobble_125": {
+     "x": 0,
+     "y": 64,
+     "w": 16,
+     "h": 16,
+     "bitmask": 125
+    },
+    "cobble_127": {
+     "x": 16,
+     "y": 64,
+     "w": 16,
+     "h": 16,
+     "bitmask": 127
+    },
+    "cobble_193": {
+     "x": 32,
+     "y": 64,
+     "w": 16,
+     "h": 16,
+     "bitmask": 193
+    },
+    "cobble_197": {
+     "x": 48,
+     "y": 64,
+     "w": 16,
+     "h": 16,
+     "bitmask": 197
+    },
+    "cobble_199": {
+     "x": 64,
+     "y": 64,
+     "w": 16,
+     "h": 16,
+     "bitmask": 199
+    },
+    "cobble_209": {
+     "x": 80,
+     "y": 64,
+     "w": 16,
+     "h": 16,
+     "bitmask": 209
+    },
+    "cobble_213": {
+     "x": 96,
+     "y": 64,
+     "w": 16,
+     "h": 16,
+     "bitmask": 213
+    },
+    "cobble_215": {
+     "x": 112,
+     "y": 64,
+     "w": 16,
+     "h": 16,
+     "bitmask": 215
+    },
+    "cobble_221": {
+     "x": 0,
+     "y": 80,
+     "w": 16,
+     "h": 16,
+     "bitmask": 221
+    },
+    "cobble_223": {
+     "x": 16,
+     "y": 80,
+     "w": 16,
+     "h": 16,
+     "bitmask": 223
+    },
+    "cobble_241": {
+     "x": 32,
+     "y": 80,
+     "w": 16,
+     "h": 16,
+     "bitmask": 241
+    },
+    "cobble_245": {
+     "x": 48,
+     "y": 80,
+     "w": 16,
+     "h": 16,
+     "bitmask": 245
+    },
+    "cobble_247": {
+     "x": 64,
+     "y": 80,
+     "w": 16,
+     "h": 16,
+     "bitmask": 247
+    },
+    "cobble_253": {
+     "x": 80,
+     "y": 80,
+     "w": 16,
+     "h": 16,
+     "bitmask": 253
+    },
+    "cobble_255": {
+     "x": 96,
+     "y": 80,
+     "w": 16,
+     "h": 16,
+     "bitmask": 255
+    }
+   }
+  },
+  "roofs_thatch": {
+   "image": "Sheets/1x/roofs_thatch.png",
+   "sprites": {
+    "roof_thatch_ridge_left": {
+     "x": 0,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false,
+     "row": "ridge",
+     "position": "left"
+    },
+    "roof_thatch_ridge_middle": {
+     "x": 16,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false,
+     "row": "ridge",
+     "position": "middle"
+    },
+    "roof_thatch_ridge_right": {
+     "x": 32,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false,
+     "row": "ridge",
+     "position": "right"
+    },
+    "roof_thatch_slope_left": {
+     "x": 0,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false,
+     "row": "slope",
+     "position": "left"
+    },
+    "roof_thatch_slope_middle": {
+     "x": 16,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false,
+     "row": "slope",
+     "position": "middle"
+    },
+    "roof_thatch_slope_right": {
+     "x": 32,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false,
+     "row": "slope",
+     "position": "right"
+    },
+    "roof_thatch_eave_left": {
+     "x": 0,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false,
+     "row": "eave",
+     "position": "left"
+    },
+    "roof_thatch_eave_middle": {
+     "x": 16,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false,
+     "row": "eave",
+     "position": "middle"
+    },
+    "roof_thatch_eave_right": {
+     "x": 32,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false,
+     "row": "eave",
+     "position": "right"
+    },
+    "dormer_thatch": {
+     "x": 0,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false
+    },
+    "dormer_thatch_lit": {
+     "x": 16,
+     "y": 48,
+     "w": 16,
+     "h": 16,
+     "style": "thatch",
+     "snow": false
+    }
+   }
+  },
+  "facades_timber": {
+   "image": "Sheets/1x/facades_timber.png",
+   "sprites": {
+    "facade_timber_wall_left": {
+     "x": 0,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "wall",
+     "position": "left"
+    },
+    "facade_timber_wall_2_left": {
+     "x": 16,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "wall_2",
+     "position": "left"
+    },
+    "facade_timber_window_left": {
+     "x": 32,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "window",
+     "position": "left"
+    },
+    "facade_timber_window_lit_left": {
+     "x": 48,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "window_lit",
+     "position": "left"
+    },
+    "facade_timber_door_left": {
+     "x": 64,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "door",
+     "position": "left"
+    },
+    "facade_timber_door_open_left": {
+     "x": 80,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "door_open",
+     "position": "left"
+    },
+    "facade_timber_shop_left": {
+     "x": 96,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "shop",
+     "position": "left"
+    },
+    "facade_timber_shop_lit_left": {
+     "x": 112,
+     "y": 0,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "shop_lit",
+     "position": "left"
+    },
+    "facade_timber_wall_middle": {
+     "x": 0,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "wall",
+     "position": "middle"
+    },
+    "facade_timber_wall_2_middle": {
+     "x": 16,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "wall_2",
+     "position": "middle"
+    },
+    "facade_timber_window_middle": {
+     "x": 32,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "window",
+     "position": "middle"
+    },
+    "facade_timber_window_lit_middle": {
+     "x": 48,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "window_lit",
+     "position": "middle"
+    },
+    "facade_timber_door_middle": {
+     "x": 64,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "door",
+     "position": "middle"
+    },
+    "facade_timber_door_open_middle": {
+     "x": 80,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "door_open",
+     "position": "middle"
+    },
+    "facade_timber_shop_middle": {
+     "x": 96,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "shop",
+     "position": "middle"
+    },
+    "facade_timber_shop_lit_middle": {
+     "x": 112,
+     "y": 16,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "shop_lit",
+     "position": "middle"
+    },
+    "facade_timber_wall_right": {
+     "x": 0,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "wall",
+     "position": "right"
+    },
+    "facade_timber_wall_2_right": {
+     "x": 16,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "wall_2",
+     "position": "right"
+    },
+    "facade_timber_window_right": {
+     "x": 32,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "window",
+     "position": "right"
+    },
+    "facade_timber_window_lit_right": {
+     "x": 48,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "window_lit",
+     "position": "right"
+    },
+    "facade_timber_door_right": {
+     "x": 64,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "door",
+     "position": "right"
+    },
+    "facade_timber_door_open_right": {
+     "x": 80,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "door_open",
+     "position": "right"
+    },
+    "facade_timber_shop_right": {
+     "x": 96,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "shop",
+     "position": "right"
+    },
+    "facade_timber_shop_lit_right": {
+     "x": 112,
+     "y": 32,
+     "w": 16,
+     "h": 16,
+     "material": "timber",
+     "piece": "shop_lit",
+     "position": "right"
+    }
+   }
+  },
+  "overlays": {
+   "image": "Sheets/1x/overlays.png",
+   "sprites": {
+    "sign_inn": {
+     "x": 0,
+     "y": 0,
+     "w": 16,
+     "h": 16
+    },
+    "sign_smith": {
+     "x": 16,
+     "y": 0,
+     "w": 16,
+     "h": 16
+    },
+    "sign_baker": {
+     "x": 32,
+     "y": 0,
+     "w": 16,
+     "h": 16
+    }
+   }
+  },
+  "props": {
+   "image": "Sheets/1x/props.png",
+   "sprites": {
+    "lamp_post_day": {
+     "x": 0,
+     "y": 0,
+     "w": 16,
+     "h": 32
+    },
+    "barrel": {
+     "x": 16,
+     "y": 0,
+     "w": 16,
+     "h": 16
+    },
+    "crate": {
+     "x": 32,
+     "y": 0,
+     "w": 16,
+     "h": 16
+    },
+    "tree_oak": {
+     "x": 48,
+     "y": 0,
+     "w": 32,
+     "h": 48
+    }
+   }
+  }
+ }
+}

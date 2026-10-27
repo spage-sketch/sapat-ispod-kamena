@@ -1,0 +1,129 @@
+WHISPERS BENEATH THE STONE
+CHARACTER & DIALOGUE REFERENCE
+Writer's brief for Gemini — version 1
+
+PURPOSE
+Use this document to develop distinctive character voices, deeper motivations, relationships, and future dialogue for the game. The game and its current dialogue are in English, so write proposed in-game dialogue in English.
+
+CANON POLICY
+This brief separates facts already present in the playable prototype from creative directions. Treat the sections marked CANON as established. Ideas marked WRITER'S DIRECTION are proposals, not settled story facts. Do not silently turn a proposal into canon. When a new idea would materially change the mystery, character history, or quest, present it as an option for the developer to choose.
+
+TONE AND SETTING
+A small, welcoming village called Village Beneath the Hill stands beside an old path and a mysterious cave. The adventure is a compact, low-fantasy RPG with a warm village surface and a quiet, uncanny mystery below it. Keep dialogue human, concise, and grounded in what each character could know. Let the mystery grow through specific observations and relationships rather than long lore speeches. Avoid modern slang, melodrama, and making every villager sound cryptic.
+
+THE PLAYABLE STORY — CANON
+1. The player creates a named Traveler and chooses one of two roles:
+   - Guardian: sturdier, with 6 health, and slower movement.
+   - Scout: quicker, with 4 health.
+   The player character's backstory, gender, pronouns, and personality are not fixed. Keep player-facing dialogue flexible and do not assign them an unchosen history.
+2. Elowen, Keeper of the Path, asks the Traveler to retrieve the Moonlit Shard from the Moonlit Cave. A Cave Guardian protects it.
+3. Returning the Moonlit Shard to Elowen completes that quest and begins a second one: find the source of a new echo in the cave and bring back the Echo Stone.
+4. Returning the Echo Stone to Elowen quiets the cave and completes the current story.
+5. The Traveler discovers a narrow crack in the cave. Elowen only offers and awards the Old Chisel after the crack has been discovered. She must not give the chisel at the beginning of a new game or merely for accepting the first quest.
+6. The current game has five named village residents: Elowen, Mira, Alden, Nessa, and Pip. They have daily routines and conversations that can react to time of day and quest progress.
+7. The Cave Guardian is currently a combat enemy, not an established speaking character. Its origin, motives, intelligence, and relationship to the cave are deliberately undecided.
+
+CHARACTER NOTES
+
+ELOWEN
+CANON
+- Title: Keeper of the Path.
+- Watches the old path beside the village.
+- Knows about the Moonlit Shard, the Cave Guardian, and the cave's later echo.
+- Gives the Traveler the Old Chisel only after they report finding the narrow crack.
+- Leads both main quests and receives both quest items.
+- Her current visual design is distinct: a purple cloak and bonnet with gold accents.
+WRITER'S DIRECTION
+- Core impression: composed, perceptive, and quietly protective; warmth shows through practical acts more than grand declarations.
+- Possible desire: keep the village safe while respecting traditions she does not fully understand.
+- Possible tension: she may know some old stories about the path yet be unsure which are history and which are warnings. Keep this uncertain unless the developer approves a specific truth.
+- Voice: measured sentences, attentive to small details, occasional imagery drawn from paths, weather, stone, and listening. Be clear when giving the player a task; mystery should not make instructions vague.
+- Relationship arc: formal caution can soften into trust and mutual respect as the Traveler returns and shares what happened.
+
+MIRA
+CANON
+- Village baker.
+- Bakes in the morning, serves bread in the afternoon, closes in the evening, and rests at night.
+- Her current dialogue connects the smell and routine of baking with the village and offers the Traveler a warm loaf after the shard quest.
+WRITER'S DIRECTION
+- Core impression: warm, practical, socially perceptive. She notices how people are doing because she sees who comes in, who skips meals, and what the village needs.
+- Possible desire: preserve ordinary comforts and daily routine while the cave troubles the village.
+- Voice: sensory details about bread, flour, heat, and morning; kind teasing; direct reassurance without becoming a generic quest-giver.
+- Use her bakery as a natural place for short local news, small favors, and character moments.
+
+ALDEN
+CANON
+- Innkeeper at the Hilltop Inn.
+- Prepares the inn in the morning, welcomes travelers in the afternoon, serves supper in the evening, and sleeps above the inn at night.
+- His dialogue establishes that the cave's echo can carry as far as the inn at night.
+WRITER'S DIRECTION
+- Core impression: hospitable, patient, and observant, with dry humor.
+- Possible desire: keep the inn a safe place where people can rest, even when the village is uneasy.
+- Voice: understated anecdotes, practical questions, restrained humor. He hears many stories but should not become all-knowing.
+- His memories of sounds at night can add clues while leaving room for uncertainty.
+
+NESSA
+CANON
+- The Herb Gatherer.
+- Gathers herbs in the morning, sorts bundles in the afternoon, trades remedies in the evening, and rests near the gardens at night.
+- Knows the hillside herbs and says the new echo began after the Moonlit Shard was returned.
+- After the crack is discovered, she suggests that Elowen keeps useful tools by the path.
+WRITER'S DIRECTION
+- Core impression: attentive, self-reliant, patient with plants and less patient with careless assumptions.
+- Possible desire: protect the hillside and preserve practical knowledge of its plants.
+- Voice: concrete observations about leaves, soil, seasons, and changes in animal or plant behavior. Her knowledge can be unusual without making her an oracle.
+- Let her distinguish what she has directly observed from what she only suspects.
+
+PIP
+CANON
+- Village Courier.
+- Delivers letters in the morning, carries parcels in the afternoon, makes final deliveries in the evening, and rests after the rounds at night.
+- Says news travels quickly around the village and recognizes when the Traveler carries a quest item.
+WRITER'S DIRECTION
+- Core impression: energetic, curious, quick to connect people and places.
+- Possible desire: be trusted with important work and prove that being young or overlooked does not make someone unreliable.
+- Voice: brisk, bright, observant, sometimes playfully dramatic. Slow down when something truly frightens or moves him.
+- He can know routes, schedules, and who was where; do not let him know private facts he could not have observed.
+
+THE CAVE GUARDIAN
+CANON
+- A hostile combatant in the Moonlit Cave. It has 3 health and can injure the Traveler.
+- It guards the Moonlit Shard during the first quest.
+- No origin, dialogue, moral alignment, or motive has been established.
+WRITER'S DIRECTION
+- Keep its nature unresolved in ordinary village dialogue.
+- If proposing a deeper identity or reason for guarding the shard, offer several distinct possibilities for the developer to select from before writing that reveal as fact.
+- Do not add spoken dialogue to the existing encounter unless proposing it as an optional future feature.
+
+THE TRAVELER
+CANON
+- Player-named protagonist; selectable role is Guardian or Scout.
+- Returns to the village and speaks with residents while pursuing the cave quests.
+WRITER'S DIRECTION
+- Keep player response options adaptable to either role and to a player-created name.
+- Avoid fixed biography, gender, pronouns, family, or personal motives.
+- Offer response choices with different attitudes (for example: practical, curious, cautious) without implying one is the sole correct personality.
+
+CURRENT QUEST AND ITEM CONTINUITY
+- First quest: Elowen asks for the Moonlit Shard; the Traveler defeats the Cave Guardian, collects the shard, and returns it to Elowen.
+- Second quest: after the shard is returned, Elowen asks the Traveler to find the Echo Stone and bring it back.
+- Crack/chisel sequence: the Traveler first finds the crack in the cave, then reports this to Elowen, then receives the Old Chisel. The chisel opens the crack and leads to a future area. Do not write dialogue that gives the chisel earlier.
+- The Echo Stone is a quest item that should be handed to Elowen at the second quest's turn-in. Avoid implying it remains with the Traveler after turn-in.
+- The Whispering Fragment and the future area beyond the opened crack are not part of the current playable quest resolution. Treat their story role as open.
+- The game's item name in current English UI is "Old Chisel"; the second quest item is "Echo Stone"; the first is "Moonlit Shard".
+
+DIALOGUE DEVELOPMENT REQUEST FOR GEMINI
+Please use this reference to propose:
+1. A deeper character profile for each person, with goals, fears, contradictions, relationships, and a small personal arc. Clearly mark any new backstory or major secret as a proposal rather than established canon.
+2. A distinct voice guide for each character, with a few short sample lines that sound different from the other residents.
+3. A compact dialogue plan for each NPC across these states where relevant: before the first quest, first quest active, carrying the shard, after the shard is returned / Echo Stone quest active, carrying the Echo Stone, and after the second quest is complete. Include time-of-day variations only where they add character or atmosphere.
+4. Optional, clearly labeled future hooks for the village, the opened crack, and the cave mystery. The village and area beyond the crack will be expanded later, so do not assume their maps or cast are already implemented.
+
+IMPLEMENTATION-FRIENDLY OUTPUT
+- Keep spoken lines short enough for a small RPG dialogue box: usually one to three sentences per line.
+- Give every NPC a distinctive vocabulary, rhythm, and way of noticing the world.
+- Let conversations respond to quest state so characters do not tell the player to collect an item they already turned in.
+- Avoid repeating the same plot exposition across all five residents. Give each person their own useful perspective.
+- Separate final dialogue text from conditional notes or pseudocode. Keep the story modular so lines can later be mapped to NPC ids: elowen, mira, alden, nessa, and pip.
+- End with a short list of canon decisions the developer should make before any proposed major reveal is implemented.
+

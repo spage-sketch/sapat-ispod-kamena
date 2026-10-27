@@ -1,29 +1,46 @@
-# Šapat ispod kamena
+# Whispers Beneath the Stone
 
-Browser-first 2D RPG prototip izrađen s Phaserom 4 i Viteom.
+A browser-first 2D RPG prototype built with Phaser 4 and Vite.
 
-## Pokretanje
-U mapi projekta pokreni pnpm run dev i otvori lokalnu adresu koju Vite ispiše. Za razvoj koristi lokalni poslužitelj, ne file:// adresu.
+## Run the game
 
-## Igrivi komad
-- Izradi lika: odaberi ime i Čuvara ili Tragača.
-- Razgovaraj s Elowen u selu i prihvati zadatak.
-- Istraži Mjesečevu špilju, porazi čuvara i pokupi odlomak.
-- Vrati se Elowen s odlomkom; otključat će ti novi zadatak.
-- Ponovno istraži špilju, porazi čuvara i pronađi kamen odjeka, pa ga donesi Elowen.
+From the project folder, run `pnpm run dev` and open the local URL printed by Vite. Use the local server rather than opening `index.html` with `file://`.
 
-## Kontrole
-WASD ili strelice: kretanje · E: razgovor i prolaz · Space: udarac
+## Playable story
 
-## Struktura
-- src/main.js: početni zaslon, HUD i povezivanje događaja.
-- src/GameScene.js: Phaser prikaz i veza s pravilima igre.
-- src/worlds.js: podaci o kartama i položajima.
-- src/data/characters.js: podaci o klasama i likovima.
-- src/data/items.js: podaci o predmetima.
-- src/data/quests.js: tekstovi i prikaz stanja questa.
-- src/systems/questSystem.js: prijelazi stanja questa i dijalozi.
-- src/systems/combatSystem.js: borbena pravila.
-- styles.css: izgled i prilagodba manjim zaslonima.
+- Create a Guardian or Scout and meet Elowen in the village.
+- Accept her quest, explore the Moonlit Cave, defeat the guardian, and retrieve the Moonlit Shard.
+- Return the shard to Elowen to unlock the Echo Stone quest.
+- Search the cave again and bring the Echo Stone back to the village.
 
-Zasad je ovo jedna kratka offline pustolovina bez online računa ili multiplayera. Napredak se automatski sprema u lokalnu pohranu preglednika na ovom uređaju; pri sljedećem otvaranju možeš nastaviti spremljenu pustolovinu ili započeti novu.
+## Controls
+
+WASD or arrow keys: move · E: interact / enter · I: inventory · Space: attack
+
+During dialogue, use Space or Enter to continue. Use the on-screen choices to respond.
+
+## Project structure
+
+- `src/main.js`: character creation, HUD, dialogue, inventory UI, and save wiring.
+- `src/GameScene.js`: Phaser scene lifecycle and coordination between systems.
+- `src/rendering/WorldRenderer.js`: village, cave, entity, and animation rendering.
+- `src/systems/playerController.js`: player input, movement, and wall collision.
+- `src/systems/interactionSystem.js`: nearby NPC, cave entrance, and crack interactions.
+- `src/worlds.js`: maps, world names, and spawn points.
+- `src/data/`: characters, items, quests, dialogue, and village art atlas.
+- `src/data/npcs.js`: named residents, appearances, and daily routines.
+- `src/state/inventory.js`: inventory state and serialization.
+- `src/systems/`: save, dialogue, quest, combat, and NPC behavior.
+- `styles.css`: responsive interface styles.
+
+The village clock advances one in-game minute per real second while play is active. NPC routines and their ambient dialogue follow the current time and quest state.
+
+## Art assets and licenses
+
+The village currently uses the Gridwright Medieval Village free sample and the Gridwright Top-Down Characters free sample. The samples allow use in personal and commercial games; do not redistribute the asset files as a standalone pack. Source links and the packs' original license/readme files are in `assets/reference-packs/`. The full paid versions are not included.
+
+Additional reference packs are stored locally in `assets/reference-packs/`: LimeZu Serene Village (CC BY 4.0; credit LimeZu when used) and Kenney Roguelike/RPG plus Roguelike Characters (CC0). Those packs are not loaded by the game at this time.
+
+## Save data
+
+This is a short offline adventure with no accounts or multiplayer. Progress, including inventory, is saved in this browser's local storage on this device. On your next visit, continue the saved adventure or start a new one.

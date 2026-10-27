@@ -1,16 +1,42 @@
-export const items = {
+export const ITEMS = {
+  klesano_dlijeto: {
+    id: "klesano_dlijeto",
+    name: "Old Chisel",
+    category: "Tool",
+    description: "A worn piece of iron. It might pry open a crack in the rock.",
+    icon: "🔨",
+  },
+  kameni_fragment: {
+    id: "kameni_fragment",
+    name: "Whispering Fragment",
+    category: "Quest",
+    description: "A cold stone etched with unreadable runes. It seems to softly vibrate at your touch.",
+    icon: "◈",
+  },
   moonShard: {
     id: "moon-shard",
-    name: "Odlomak mjesečine",
+    name: "Moonlit Shard",
+    category: "Quest",
     icon: "✧",
-    description: "Svjetlucavi odlomak koji štiti dolinu.",
+    description: "A glowing fragment that protects the valley.",
     questId: "moon-shard",
   },
   echoStone: {
     id: "echo-stone",
-    name: "Kamen odjeka",
+    name: "Echo Stone",
+    category: "Quest",
     icon: "◈",
-    description: "Tajanstveni kamen koji je stvarao odjek u špilji.",
+    description: "A mysterious stone that echoed through the cave.",
     questId: "stone-echo",
   },
+  warmLoaf: {
+    id: "warmLoaf",
+    name: "Warm Loaf",
+    category: "Food",
+    icon: "🍞",
+    description: "A fresh loaf from Mira's oven, still warm from the hearth.",
+  },
 };
+
+// Keep the existing story item identifiers available to the game scene.
+export const items = ITEMS;

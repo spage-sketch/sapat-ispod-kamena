@@ -1,6 +1,43 @@
-<!doctype html><html lang="hr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101719"><title>Šapat ispod kamena — RPG proba</title></head><body><main class="shell">
-<header class="masthead"><span class="sigil">✦</span><div><small>MALA RPG AVANTURA</small><h1>Šapat ispod kamena</h1></div><span class="tag">PHASER PROBA</span></header>
-<section id="creation" class="card creation"><div class="intro"><small>TVOJE PUTOVANJE POČINJE</small><h2>Prijeđi prag špilje.</h2><p>Upoznaj čuvaricu, prihvati zadatak i pronađi svjetlucavi odlomak u dubini.</p></div>
-<form id="character-form" onsubmit="return false"><label for="hero-name">Ime pustolova</label><input id="hero-name" name="heroName" maxlength="18" value="Putnik" autocomplete="off"><fieldset><legend>Odaberi svoj poziv</legend><label class="option"><input type="radio" name="heroClass" value="čuvar" checked><span class="icon">🛡️</span><span><b>Čuvar</b><small>Više zdravlja, sporiji korak</small></span></label><label class="option"><input type="radio" name="heroClass" value="tragač"><span class="icon">🧭</span><span><b>Tragač</b><small>Brže istraživanje, manje zdravlja</small></span></label></fieldset><button class="primary" type="submit">Započni pustolovinu <span>→</span></button></form></section>
-<section id="game" class="layout hidden"><div class="card game-card"><div class="hud"><div class="hero"><span id="hero-avatar" class="avatar">🛡️</span><span><b id="hero-label">Putnik</b><small id="hero-class-label">Čuvar</small></span></div><div><small class="label">ZDRAVLJE</small><strong id="health-hearts" class="hearts"></strong></div><div><small class="label">LOKACIJA</small><b id="location-label">Selo</b></div><button id="restart-button" class="quiet" type="button">↻ <span>Iz početka</span></button></div><div class="board"><div id="game-board"></div><div id="game-toast" class="toast hidden" role="status"></div></div><div class="controls"><span><kbd>WASD</kbd> / strelice kretanje</span><span><kbd>E</kbd> razgovor / prolaz</span><span><kbd>Space</kbd> udarac</span></div></div><aside><section class="card quest"><small>DNEVNIK</small><h2 id="quest-title">Mirna dolina</h2><p id="quest-copy"></p><strong id="quest-status" class="status"></strong></section><section class="card legend"><small>UPOZNAJ OKOLINU</small><p><i>🧙</i><span><b>Elowen</b><small>Čuvarica staze</small></span></p><p><i>👾</i><span><b>Špiljski čuvar</b><small>Čuvaj se njegovih naleta</small></span></p><p><i>✧</i><span><b>Mjesečev odlomak</b><small>Cilj tvog zadatka</small></span></p></section><section class="card tip"><span>✦</span><p id="tip-copy"></p></section></aside></section>
-<section id="dialogue" class="card dialogue hidden" aria-live="polite"><span id="dialogue-portrait" class="portrait">🧙</span><div class="dialogue-copy"><small id="speaker-label">ELOWEN</small><p id="dialogue-text"></p></div><button id="dialogue-next" class="primary" type="button">Dalje →</button></section><footer><span>Mala RPG pustolovina.</span><span>Prvi korak veće pustolovine</span></footer></main><script type="module" src="/src/main.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101719">
+  <title>Whispers Beneath the Stone — RPG Prototype</title>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead"><span class="sigil">✦</span><div><small>A SMALL RPG ADVENTURE</small><h1>Whispers Beneath the Stone</h1></div><span class="tag">PHASER PROTOTYPE</span></header>
+    <section id="creation" class="card creation">
+      <div class="intro"><small>YOUR JOURNEY BEGINS</small><h2>Step beyond the cave.</h2><p>Meet the keeper, take on a quest, and find a glowing shard in the depths.</p></div>
+      <form id="character-form" onsubmit="return false">
+        <label for="hero-name">Adventurer name</label><input id="hero-name" name="heroName" maxlength="18" value="Traveler" autocomplete="off">
+        <fieldset><legend>Choose your calling</legend>
+          <label class="option"><input type="radio" name="heroClass" value="čuvar" checked><span class="icon">🛡️</span><span><b>Guardian</b><small>More health, slower steps</small></span></label>
+          <label class="option"><input type="radio" name="heroClass" value="tragač"><span class="icon">🧭</span><span><b>Scout</b><small>Faster travel, less health</small></span></label>
+        </fieldset>
+        <button class="primary" type="submit">Begin your adventure <span>→</span></button>
+      </form>
+    </section>
+    <section id="game" class="layout hidden">
+      <div class="card game-card">
+        <div class="hud"><div class="hero"><span id="hero-avatar" class="avatar">🛡️</span><span><b id="hero-label">Traveler</b><small id="hero-class-label">Guardian</small></span></div><div><small class="label">HEALTH</small><strong id="health-hearts" class="hearts"></strong></div><div class="location-readout"><small class="label">LOCATION</small><b id="location-label">Village Beneath the Hill</b><small id="world-clock" class="world-clock">8:00 AM · morning</small></div><button id="inventory-toggle" class="quiet" type="button" aria-expanded="false">🎒 <span>Inventory <kbd>I</kbd></span></button><button id="restart-button" class="quiet" type="button">↻ <span>Start over</span></button></div>
+        <div class="board"><div id="game-board"></div><div id="game-toast" class="toast hidden" role="status"></div>
+          <section id="inventory-panel" class="inventory-panel hidden" aria-label="Inventory"><header><div><small>YOUR ITEMS</small><h2>Backpack</h2></div><button id="inventory-close" class="quiet" type="button" aria-label="Close inventory">✕</button></header><div id="inventory-grid" class="inventory-grid"></div></section>
+          <div id="item-inspection" class="inspection hidden" role="dialog" aria-modal="true"><article><button id="inspection-close" class="quiet" type="button" aria-label="Close item details">✕</button><span id="inspection-icon"></span><small id="inspection-category"></small><h3 id="inspection-name"></h3><p id="inspection-description"></p></article></div>
+        </div>
+        <div class="controls"><span><kbd>WASD</kbd> / arrows move</span><span><kbd>E</kbd> talk / enter</span><span><kbd>I</kbd> inventory</span><span><kbd>Space</kbd> attack</span></div>
+      </div>
+      <aside>
+        <section class="card quest"><small>QUEST LOG</small><h2 id="quest-title">A Quiet Valley</h2><p id="quest-copy"></p><strong id="quest-status" class="status"></strong></section>
+        <section class="card legend"><small>PEOPLE & CREATURES</small><p><i>🧙</i><span><b>Elowen</b><small>Keeper of the Path</small></span></p><p><i>👾</i><span><b>Cave Guardian</b><small>Watch for its charges</small></span></p><p><i>✧</i><span><b>Moonlit Shard</b><small>The quest's goal</small></span></p></section>
+        <section class="card tip"><span>✦</span><p id="tip-copy"></p></section>
+      </aside>
+    </section>
+    <section id="dialogue" class="card dialogue hidden" aria-live="polite"><span id="dialogue-portrait" class="portrait">🧙</span><div class="dialogue-copy"><small id="speaker-label">ELOWEN</small><p id="dialogue-text"></p></div><div id="dialogue-actions" class="dialogue-actions"><div id="dialogue-choices" class="dialogue-choices hidden" aria-label="Choose a response"></div><button id="dialogue-next" class="primary" type="button">Continue →</button></div></section>
+    <footer><span>Art by Gridwright</span><span>The first step toward a bigger world</span></footer>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
