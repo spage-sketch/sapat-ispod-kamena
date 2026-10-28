@@ -44,6 +44,7 @@ function isValidSave(save) {
   const { state } = save;
   if (state.worldMinute !== undefined && (!Number.isInteger(state.worldMinute) || state.worldMinute < 0 || state.worldMinute >= 24 * 60)) return false;
   if (state.crackDiscovered !== undefined && typeof state.crackDiscovered !== "boolean") return false;
+  if (state.crackOpened !== undefined && typeof state.crackOpened !== "boolean") return false;
   if (state.dialogueFlags !== undefined && (!state.dialogueFlags || typeof state.dialogueFlags !== "object" || Array.isArray(state.dialogueFlags)
     || Object.entries(state.dialogueFlags).some(([id, value]) => !dialogueFlagIds.includes(id) || typeof value !== "boolean"))) return false;
   if (state.seenDialogues !== undefined && (!Array.isArray(state.seenDialogues)

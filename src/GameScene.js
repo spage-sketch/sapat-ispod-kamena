@@ -39,6 +39,7 @@ export default class GameScene extends Phaser.Scene {
         hero: { ...saved.hero, maxHp: heroClass.maxHp, speed: heroClass.speed, faceX: 1, faceY: 0 },
         enemy: { ...saved.enemy },
       };
+      this.crackOpened = saved.crackOpened ?? false;
       inventory.deserialize(saved.inventory ?? {});
       if (saved.crackDiscovered === undefined) {
         const legacyChisel = inventory.getInventory().find(item => item.id === "klesano_dlijeto");
@@ -49,6 +50,7 @@ export default class GameScene extends Phaser.Scene {
       }
       if (saved.questId === "stoneEcho" && saved.quest === "complete") inventory.removeItem("echoStone");
     } else {
+      this.crackOpened = false;
       inventory.deserialize({});
       this.state = { location:"village", questId:"moonShard", quest:"waiting", shardFound:false, echoFound:false, crackDiscovered:false, worldMinute:8*60, dialogueFlags:{}, seenDialogues:[], hero:{...spawns.village,name:data.name||"Traveler",role,maxHp:heroClass.maxHp,hp:heroClass.maxHp,speed:heroClass.speed,faceX:1,faceY:0}, enemy:createEnemyState() };
     }
@@ -77,7 +79,7 @@ export default class GameScene extends Phaser.Scene {
   }
   hudData(){return {...this.state,locationName:worlds[this.state.location].name,timeLabel:`${formatGameTime(this.state.worldMinute)} · ${getTimePeriod(this.state.worldMinute)}`,questData:getQuestDisplay(this.state.questId,this.state.quest)}}
   emitHud(){this.game.events.emit("hud",this.hudData())}
-  emitSave(){this.game.events.emit("save",{location:this.state.location,questId:this.state.questId,quest:this.state.quest,shardFound:this.state.shardFound,echoFound:this.state.echoFound,crackDiscovered:this.state.crackDiscovered,worldMinute:this.state.worldMinute,dialogueFlags:{...this.state.dialogueFlags},seenDialogues:[...this.state.seenDialogues],inventory:inventory.serialize(),hero:{name:this.state.hero.name,role:this.state.hero.role,x:this.state.hero.x,y:this.state.hero.y,hp:this.state.hero.hp},enemy:{...this.state.enemy}})}
+  emitSave(){this.game.events.emit("save",{location:this.state.location,questId:this.state.questId,quest:this.state.quest,shardFound:this.state.shardFound,echoFound:this.state.echoFound,crackDiscovered:this.state.crackDiscovered,crackOpened:this.crackOpened,worldMinute:this.state.worldMinute,dialogueFlags:{...this.state.dialogueFlags},seenDialogues:[...this.state.seenDialogues],inventory:inventory.serialize(),hero:{name:this.state.hero.name,role:this.state.hero.role,x:this.state.hero.x,y:this.state.hero.y,hp:this.state.hero.hp},enemy:{...this.state.enemy}})}
   notify(message,duration=2200){this.game.events.emit("toast",{message,duration})}
   tileAt(x,y){return worlds[this.state.location].map[y]?.[x]??"#"}
   update(_time,deltaMs){

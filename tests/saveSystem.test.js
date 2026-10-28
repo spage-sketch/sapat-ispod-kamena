@@ -25,6 +25,13 @@ test("sprema i učitava stanje pustolovine", () => {
   assert.deepEqual(readSave(storage), { status: "available", state: { ...state, inventory: {} } });
 });
 
+test("sprema trajno stanje otvorene pukotine", () => {
+  const storage = createStorage();
+  const openedState = { ...state, crackDiscovered: true, crackOpened: true };
+  writeSave(storage, openedState);
+  assert.equal(readSave(storage).state.crackOpened, true);
+});
+
 test("razlikuje nepostojeće, neispravno i nekompatibilno spremanje", () => {
   assert.deepEqual(readSave(createStorage()), { status: "missing" });
   assert.deepEqual(readSave(createStorage("{")), { status: "invalid" });
@@ -34,6 +41,8 @@ test("razlikuje nepostojeće, neispravno i nekompatibilno spremanje", () => {
 test("odbacuje nevaljane podatke igre", () => {
   const invalidState = { ...state, hero: { ...state.hero, hp: 99 } };
   assert.deepEqual(readSave(createStorage(JSON.stringify({ version: 1, state: invalidState }))), { status: "invalid" });
+  const invalidCrackState = { ...state, crackOpened: "yes" };
+  assert.deepEqual(readSave(createStorage(JSON.stringify({ version: 1, state: invalidCrackState }))), { status: "invalid" });
 });
 
 test("uklanja spremljeno stanje", () => {
